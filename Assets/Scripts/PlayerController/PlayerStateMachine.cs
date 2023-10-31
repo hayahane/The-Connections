@@ -1,9 +1,11 @@
+using System;
 using Monologist.KCC;
 using Monologist.Patterns.State;
 using PlayerController.States;
 
 namespace PlayerController
 {
+    [Serializable]
     public class PlayerStateMachine : StateMachine
     {
         public readonly PlayerController PC;

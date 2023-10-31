@@ -1,9 +1,9 @@
 {
   "dependencies": {
     "com.monologist.kcc": {
-      "version": "file:E:/Monologist/Packages/com.monologist.kcc@1.2.0",
+      "version": "file:com.monologist.kcc@1.2.0",
       "depth": 0,
-      "source": "local",
+      "source": "embedded",
       "dependencies": {}
     },
     "com.unity.animation.rigging": {

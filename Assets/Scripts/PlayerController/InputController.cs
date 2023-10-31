@@ -22,7 +22,7 @@ namespace PlayerController
             _playerInput.actions["Move"].performed += OnMoveInput;
             _playerInput.actions["Move"].canceled += OnMoveInput;
 
-            _playerInput.actions["Jump"].performed += OnJumpInput;
+            _playerInput.actions["Jump"].started += OnJumpInput;
             _playerInput.actions["Jump"].canceled += OnJumpInput;
             
             _playerInput.actions["Aim"].performed += OnAimInput;
@@ -31,6 +31,14 @@ namespace PlayerController
 
         private void OnDisable()
         {
+            _playerInput.actions["Move"].performed -= OnMoveInput;
+            _playerInput.actions["Move"].canceled -= OnMoveInput;
+
+            _playerInput.actions["Jump"].performed -= OnJumpInput;
+            _playerInput.actions["Jump"].canceled -= OnJumpInput;
+            
+            _playerInput.actions["Aim"].performed -= OnAimInput;
+            _playerInput.actions["Aim"].canceled -= OnAimInput;
         }
 
         #region Input Callbacks
@@ -52,10 +60,11 @@ namespace PlayerController
         {
             if (context.canceled)
             {
-                PlayerController.JumpTime = 0f;
+                PlayerController.IsJumpPressed = false;
                 return;
             }
-            PlayerController.JumpTime += Time.deltaTime;
+
+            PlayerController.IsJumpPressed = true;
         }
 
         private void OnAimInput(InputAction.CallbackContext context)

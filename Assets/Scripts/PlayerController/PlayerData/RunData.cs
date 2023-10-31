@@ -10,5 +10,7 @@ namespace PlayerController
         public float RunSpeed;
         public float Acceleration;
         public AnimationCurve AccelerationModifier;
+        [Min(0)]
+        public float RotateSpeed = 0.8f; 
     }
 }

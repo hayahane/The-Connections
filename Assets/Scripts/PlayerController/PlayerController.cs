@@ -1,5 +1,4 @@
 using Monologist.KCC;
-using TMPro;
 using UnityEngine;
 
 namespace PlayerController
@@ -8,6 +7,7 @@ namespace PlayerController
     {
         public KinematicCharacterController Kcc;
         public Animator PlayAnimator;
+        [SerializeField]
         private PlayerStateMachine _psm;
 
         #region Player Config Data
@@ -21,7 +21,7 @@ namespace PlayerController
 
         public Vector3 InputMoveDirection { get; set; }
         public bool CanJump { get; set; } = false;
-        public float JumpTime { get; set; } = 0;
+        public bool IsJumpPressed { get; set; }
 
         #endregion
 
@@ -33,7 +33,7 @@ namespace PlayerController
 
         private void OnEnable()
         {
-            if (_psm != null)
+            if (_psm != null && _psm.CurrentState != null)
                 _psm.CurrentState.OnEnter();
         }
 
@@ -49,7 +49,7 @@ namespace PlayerController
 
         private void OnDisable()
         {
-            if (_psm != null)
+            if (_psm != null && _psm.CurrentState != null)
                 _psm.CurrentState.OnExit();
         }
     }

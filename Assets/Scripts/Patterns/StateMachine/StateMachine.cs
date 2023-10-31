@@ -6,6 +6,7 @@ namespace Monologist.Patterns.State
 {
     public abstract class StateMachine
     {
+        public String CurrentStateName;
         public IState CurrentState { get; private set; }
         private Dictionary<string, IState> _statePool;
 
@@ -29,6 +30,10 @@ namespace Monologist.Patterns.State
                 Debug.LogError($"Can't find a state named {stateName}");
                 return;
             }
+#if UNITY_EDITOR
+            Debug.Log($"Change to state:{stateName}");
+#endif
+            CurrentStateName = stateName;
             TransitTo(nextState);
         }
 

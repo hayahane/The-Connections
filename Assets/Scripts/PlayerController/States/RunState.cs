@@ -22,7 +22,7 @@ namespace PlayerController.States
         {
             _psm.Kcc.BaseVelocity = Vector3.zero;
             _psm.PC.CanJump = true;
-            _psm.PC.JumpTime = 0f;
+            
             _psm.PC.PlayAnimator.SetBool(Grounded, true);
         }
 
@@ -31,16 +31,17 @@ namespace PlayerController.States
             // Rotate
             var forward = Vector3.ProjectOnPlane(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp).normalized;
             var rot = forward == Vector3.zero?_psm.PC.transform.rotation:Quaternion.LookRotation(forward, _psm.Kcc.CharacterUp);
+            rot = Quaternion.Slerp(rot, _psm.PC.transform.rotation, _psm.RunData.RotateSpeed);
             _psm.PC.transform.rotation = rot;
-
+            
+            // Set animator params
             var speed = Mathf.Clamp(_psm.Kcc.BaseVelocity.magnitude / 2f, 0, 1);
             var motionSpeed = Mathf.Max(_psm.Kcc.BaseVelocity.magnitude / 5, 0.1f);
-            
             _psm.PC.PlayAnimator.SetFloat(Speed, speed);
             _psm.PC.PlayAnimator.SetFloat(MotionSpeed, speed < 0.1? 1: motionSpeed);
             
             // Check conditions to transit to other states
-            if (_psm.PC.JumpTime > 0)
+            if (_psm.PC.IsJumpPressed && _psm.PC.CanJump)
             {
                 _psm.TransitTo("Jump State");
                 return;
@@ -69,6 +70,7 @@ namespace PlayerController.States
 
         public void OnExit()
         {
+            _psm.PC.CanJump = false;
             _psm.PC.PlayAnimator.SetBool(Grounded, false);
         }
 

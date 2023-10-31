@@ -17,6 +17,7 @@ namespace PlayerController.States
         #region State Implement
         public void OnEnter()
         {
+            _psm.PC.CanJump = false;
             _psm.PC.PlayAnimator.SetBool(IsFalling, true);
         }
 
