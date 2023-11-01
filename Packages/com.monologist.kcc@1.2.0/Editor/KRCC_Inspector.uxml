@@ -1,0 +1,33 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="True">
+    <ui:Foldout value="true" usage-hints="None" name="Slope" text="Solve Slope" style="align-items: stretch; flex-direction: column; align-self: auto; padding-left: 0; background-color: rgb(48, 48, 48); padding-top: 5px; padding-bottom: 5px; margin-bottom: 5px; border-left-color: rgb(33, 33, 33); border-right-color: rgb(33, 33, 33); border-top-color: rgb(33, 33, 33); border-bottom-color: rgb(33, 33, 33); border-top-left-radius: 4px; border-bottom-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-right-width: 2px; border-bottom-width: 3px; margin-left: 3px; margin-top: 3px; white-space: normal; -unity-text-align: upper-left; border-left-width: 0; border-top-width: 0; flex-wrap: nowrap;">
+        <ui:Toggle label="Solve Slope" name="Toggle" binding-path="SolveSlope" />
+        <ui:Slider picking-mode="Ignore" label="Slider" value="42" high-value="90" binding-path="MaxSlopeAngle" show-input-field="true" />
+    </ui:Foldout>
+    <uie:PropertyField name="MustFloat" binding-path="MustFloat" style="-unity-font-style: normal;" />
+    <uie:PropertyField name="AffectCharacterVelocity" binding-path="AffectCharacterVelocity" style="-unity-font-style: normal;" />
+    <uie:PropertyField name="PushRigidbody" binding-path="PushRigidbody" style="-unity-font-style: normal;" />
+    <uie:PropertyField name="SnapGround" binding-path="SnapGround" style="-unity-font-style: normal;" />
+    <uie:PropertyField name="SolveSlide" binding-path="SolveSliding" style="-unity-font-style: normal;" />
+    <uie:PropertyField binding-path="SolveStepping" name="SolveStep" style="-unity-font-style: normal;" />
+    <uie:PropertyField binding-path="SolveSlope" label="Solve Slope" name="SolveSlope" style="align-items: auto; align-self: flex-start; width: auto; -unity-font-style: normal;" />
+    <uie:PropertyField binding-path="MaxStepHeight" name="MaxStepHeight" />
+    <uie:PropertyField binding-path="EnergyRemainFactor" name="EnergyRemain" />
+    <uie:PropertyField binding-path="VelocityMoveThreshold" name="VelocityMoveThreshold" />
+    <uie:PropertyField binding-path="GroundingSpeedRemain" name="GroundingSpeedRemain" />
+    <uie:PropertyField binding-path="Gravity" name="Gravity" />
+    <uie:PropertyField name="InteractMode" binding-path="PushMode" />
+    <uie:PropertyField name="GroundLayer" binding-path="GroundLayer" />
+    <uie:PropertyField name="InteractLayer" binding-path="InteractLayer" />
+    <ui:Foldout text="Debug" name="Debug" value="false" style="-unity-font: url(&apos;project://database/Assets/TextMesh%20Pro/Fonts/LiberationSans.ttf?fileID=12800000&amp;guid=e3265ab4bf004d28a9537516768c1c75&amp;type=3#LiberationSans&apos;); -unity-font-style: normal; margin-top: 12px;">
+        <ui:Label tabindex="-1" text="Is Grounded:" display-tooltip-when-elided="true" name="IsGrounded" style="-unity-font-style: normal; margin-bottom: 0;">
+            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="State" binding-path="_isGrounded" enable-rich-text="false" text="[Runtime Only]" style="width: 105px; left: 30%;" />
+        </ui:Label>
+        <ui:Label tabindex="-1" text="Ground Collider:" display-tooltip-when-elided="true" name="GroundNormal" style="-unity-font-style: normal; margin-bottom: 0;">
+            <ui:Label tabindex="-1" display-tooltip-when-elided="true" name="State" binding-path="_cachedGroundNormal" enable-rich-text="false" text="[Runtime Only]" style="width: 105px; left: 30%;" />
+        </ui:Label>
+        <ui:Label tabindex="-1" text="Attached Mover:" display-tooltip-when-elided="true" name="AttachedMover" style="-unity-font-style: normal; margin-bottom: 0; margin-top: 8px;" />
+        <uie:PropertyField binding-path="_attachedMover" style="left: auto;" />
+        <ui:Slider picking-mode="Ignore" label="Slider" value="42" high-value="90" binding-path="MaxSlopeAngle" />
+        <uie:PropertyField binding-path="MaxSlopeAngle" name="MaxSlopeAngle" />
+    </ui:Foldout>
+</ui:UXML>
