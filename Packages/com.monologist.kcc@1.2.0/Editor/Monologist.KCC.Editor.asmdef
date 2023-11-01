@@ -1,0 +1,18 @@
+{
+    "name": "Monologist.KCC.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:818672b75c9cab94491fe16a842c7a4f"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
