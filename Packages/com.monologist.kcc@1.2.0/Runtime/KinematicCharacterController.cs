@@ -230,7 +230,7 @@ namespace Monologist.KCC
             _transientRotation = CharacterRotation;
 
             SyncWithAttachedDynamicPlatform(ref _transientPosition, ref _transientRotation);
-            
+
 
             // Rotate
             if (_rotationDirtyMark)
@@ -242,7 +242,7 @@ namespace Monologist.KCC
             CharacterForward = _transientRotation * Vector3.forward;
 
             _internalCharacterCollisionCount = 0;
-            
+
             ResolveOverlap(ref _transientPosition, _transientRotation);
 
             if (_motionVector != Vector3.zero)
@@ -268,8 +268,7 @@ namespace Monologist.KCC
 
                     if (_remainingMoveDistance <= 0) break;
                 }
-
-                _baseVelocityMagnitude -= Mathf.Max(0, _remainingMoveDistance);
+                _baseVelocityMagnitude -= _remainingMoveDistance;
             }
             else
             {
@@ -435,7 +434,7 @@ namespace Monologist.KCC
                 (CurrentGroundState == GroundState.Grounded
                     ? MaxStepHeight
                     : 0)
-                      + GroundDetectOffset);
+                + GroundDetectOffset);
             var isSurfaceValid = snapMovement <= maxSnapDistance;
 
             // Return if the surface is not valid for a ground probe
@@ -596,7 +595,15 @@ namespace Monologist.KCC
                         GroundNormal = closetHitInfo.normal;
                     }
 
-                    transientDirection = Vector3.ProjectOnPlane(transientDirection, GroundNormal).normalized;
+                    transientDirection = Vector3.ProjectOnPlane(transientDirection, closetHitInfo.normal);
+                    if (MustFloat)
+                    {
+                        var scale = transientDirection.magnitude;
+                        _baseVelocityMagnitude -= transientDistance * (1 - scale);
+                        transientDistance *= scale;
+                    }
+
+                    transientDirection = transientDirection.normalized;
                     sweepIteration = SweepIteration.Initial;
                     return true;
                 }
@@ -631,7 +638,9 @@ namespace Monologist.KCC
                 previousNormal = closetHitInfo.normal;
                 SolveSlideAlongSurface(closetHitInfo.normal, previousNormal, ref transientDirection, previousDirection,
                     ref sweepIteration);
-                transientDistance *= transientDirection.magnitude;
+                var scale = transientDirection.magnitude;
+                _baseVelocityMagnitude -= transientDistance * (1 - scale);
+                transientDistance *= scale;
                 transientDirection = transientDirection.normalized;
 
                 return true;
@@ -758,7 +767,7 @@ namespace Monologist.KCC
         /// <returns>Projected velocity.</returns>
         private Vector3 ProjectVelocityOnSurface(Vector3 velocity, Vector3 normal)
         {
-            if (CurrentGroundState != GroundState.Grounded)
+            if (CurrentGroundState != GroundState.Grounded || MustFloat)
                 return Vector3.ProjectOnPlane(velocity, normal);
 
             Vector3 groundNormal = GroundNormal;

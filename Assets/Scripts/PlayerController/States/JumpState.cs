@@ -18,46 +18,59 @@ namespace PlayerController.States
         {
             _psm = psm;
         }
-        
+
         #region State Implement
+
         public void OnEnter()
         {
             // Reset state variables
             _isOffGround = false;
-            
+
             // Change kcc functions
             _psm.Kcc.SnapGround = false;
-            
+            _psm.Kcc.SolveStepping = false;
+            _psm.Kcc.MustFloat = true;
+
             // Set animator params
             _psm.PC.PlayAnimator.SetTrigger(Jump);
-            
+
             // Calculate init jump up speed
             _gravity = _psm.Kcc.Gravity.magnitude;
             _initSpeed = Mathf.Sqrt(_psm.JumpData.MinJumpHeight * 2f * _gravity);
-            var a = 2 * (_psm.JumpData.MaxJumpHeight - _psm.JumpData.MinJumpHeight) / (_initSpeed * _initSpeed) + 1/_gravity;
+            var a = 2 * (_psm.JumpData.MaxJumpHeight - _psm.JumpData.MinJumpHeight) / (_initSpeed * _initSpeed) +
+                    1 / _gravity;
             _jumpAcceleration = _gravity - 1 / a;
-            var velocity = Vector3.ProjectOnPlane(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp)
-                                   +  _initSpeed * _psm.Kcc.CharacterUp;
+            var horizontalVelocity = Vector3.ProjectOnPlane(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp);
+            horizontalVelocity = horizontalVelocity.normalized *
+                                 Mathf.Min(horizontalVelocity.magnitude, _psm.JumpData.HorizontalSpeedLimit);
+            var velocity = horizontalVelocity + _initSpeed * _psm.Kcc.CharacterUp;
 
             _psm.Kcc.BaseVelocity = velocity;
+            Debug.Log($"init velocity{velocity}");
         }
 
         public void Update()
         {
+            // Rotate
+            var forward = _psm.PC.InputMoveDirection.normalized;
+            var rot = forward == Vector3.zero?_psm.PC.transform.rotation:Quaternion.LookRotation(forward, _psm.Kcc.CharacterUp);
+            rot = Quaternion.Slerp(rot, _psm.PC.transform.rotation, _psm.RunData.RotateSpeed);
+            _psm.PC.transform.rotation = rot;
+            
             if (_psm.Kcc.CurrentGroundState == GroundState.Floating)
             {
                 _isOffGround = true;
             }
-            
+
             // Check condition to transit to other states
             if (_psm.Kcc.CurrentGroundState == GroundState.Grounded && _isOffGround)
             {
                 _psm.TransitTo("Run State");
                 return;
             }
-            if (Vector3.Dot(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp) < 0f)
+
+            if (Vector3.Dot(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp) <= 0f)
             {
-                Debug.Log(_psm.PC.transform.position.y);
                 _psm.TransitTo("Fall State");
                 return;
             }
@@ -65,21 +78,24 @@ namespace PlayerController.States
 
         public void FixedUpdate()
         {
-            _psm.Kcc.MoveByVelocity(_psm.Kcc.BaseVelocity  
-                                    -_psm.Kcc.CharacterUp * ((_gravity - (_psm.PC.IsJumpPressed ? _jumpAcceleration : 0)) * Time.deltaTime));
-            
+            var targetVelocity = (_psm.Kcc.BaseVelocity.y - (_gravity - (_psm.PC.IsJumpPressed ? _jumpAcceleration : 0)) * Time.deltaTime) * _psm.Kcc.CharacterUp;
+            targetVelocity += _psm.PC.InputMoveDirection * _psm.JumpData.HorizontalSpeedLimit;
+            _psm.Kcc.MoveByVelocity(targetVelocity);
         }
 
         public void OnExit()
         {
             _psm.Kcc.SnapGround = true;
+            _psm.Kcc.MustFloat = false;
+            _psm.Kcc.SolveStepping = true;
+            
             _psm.PC.IsJumpPressed = false;
         }
 
         public void OnDrawGizmos()
         {
-            
         }
+
         #endregion
     }
 }

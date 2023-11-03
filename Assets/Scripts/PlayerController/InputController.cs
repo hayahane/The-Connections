@@ -14,6 +14,9 @@ namespace PlayerController
         public Transform CameraTransform;
         public PlayerController PlayerController;
         public CameraController CamControl;
+        public ConnectionScanner Scanner;
+
+        private bool _isMouseLocked = true;
 
         private void OnEnable()
         {
@@ -24,9 +27,13 @@ namespace PlayerController
 
             _playerInput.actions["Jump"].started += OnJumpInput;
             _playerInput.actions["Jump"].canceled += OnJumpInput;
-            
+
             _playerInput.actions["Aim"].performed += OnAimInput;
             _playerInput.actions["Aim"].canceled += OnAimInput;
+
+            _playerInput.actions["Scan"].started += OnScanInput;
+
+            _playerInput.actions["UnlockMouse"].performed += UnlockMouse;
         }
 
         private void OnDisable()
@@ -36,9 +43,19 @@ namespace PlayerController
 
             _playerInput.actions["Jump"].performed -= OnJumpInput;
             _playerInput.actions["Jump"].canceled -= OnJumpInput;
-            
+
             _playerInput.actions["Aim"].performed -= OnAimInput;
             _playerInput.actions["Aim"].canceled -= OnAimInput;
+
+            _playerInput.actions["Scan"].started -= OnScanInput;
+        }
+
+        private void Update()
+        {
+            if (_isMouseLocked)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
 
         #region Input Callbacks
@@ -77,6 +94,16 @@ namespace PlayerController
 
             CamControl.AimInput = context.ReadValue<Vector2>();
             CamControl.AimInput *= IsUsingMouse ? 1 : Time.deltaTime;
+        }
+
+        private void OnScanInput(InputAction.CallbackContext context)
+        {
+            Scanner.TriggerScanPulse();
+        }
+
+        private void UnlockMouse(InputAction.CallbackContext context)
+        {
+            
         }
 
         #endregion

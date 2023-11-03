@@ -20,6 +20,7 @@ namespace PlayerController.States
 
         public void OnEnter()
         {
+            _psm.Kcc.SnapGround = true;
             _psm.Kcc.BaseVelocity = Vector3.zero;
             _psm.PC.CanJump = true;
             

@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using Unity.Mathematics;
 using UnityEngine;
 
@@ -6,13 +7,16 @@ public class CameraController : MonoBehaviour
 {
     public Vector2 AngleClampX = new Vector2(-50f, 70f);
     public Vector2 AimInput;
+    public bool IsFocusing = false;
 
     private const float Threshold = 0.1f;
 
     private float _cameraYaw;
 
     private float _cameraPitch;
-
+    
+    [SerializeField] private CinemachineVirtualCamera _focusCamera;
+    
     private void OnEnable()
     {
         var euler = transform.eulerAngles;
@@ -31,6 +35,9 @@ public class CameraController : MonoBehaviour
             _cameraPitch = ClampAngle(_cameraPitch, AngleClampX.x, AngleClampX.y);
             _cameraYaw = ClampAngle(_cameraYaw, float.MinValue, float.MaxValue);
         }
+
+        _focusCamera.Priority = IsFocusing ? 20 : 0;
+        
 
         transform.rotation = Quaternion.Euler(_cameraPitch, _cameraYaw, 0);
     }
