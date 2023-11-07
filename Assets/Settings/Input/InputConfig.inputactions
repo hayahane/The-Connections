@@ -47,7 +47,7 @@
                     "id": "cc52ca52-73bf-426a-8a02-13f176c55d07",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Hold",
                     "initialStateCheck": false
                 },
                 {
@@ -57,6 +57,15 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Connect",
+                    "type": "Button",
+                    "id": "e48e6879-9f8d-4206-840c-dbe8f20c4968",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Hold(duration=0.6),Press",
                     "initialStateCheck": false
                 }
             ],
@@ -207,7 +216,7 @@
                 {
                     "name": "",
                     "id": "36b388af-278e-4bdf-8eb6-93089f03f8cb",
-                    "path": "<Mouse>/rightButton",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "KeyboardMouse",
@@ -218,11 +227,33 @@
                 {
                     "name": "",
                     "id": "1993f447-f079-407b-b131-bbcf12e3dee3",
-                    "path": "<Gamepad>/buttonWest",
+                    "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b721861d-8eeb-408f-b589-71564d5d5d84",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KeyboardMouse",
+                    "action": "Connect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b388130f-4d0b-4d6d-a351-617c88adee9d",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Connect",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

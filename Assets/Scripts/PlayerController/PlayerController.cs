@@ -1,5 +1,6 @@
 using Monologist.KCC;
 using UnityEngine;
+using UnityEngine.Animations;
 
 namespace PlayerController
 {
@@ -14,6 +15,7 @@ namespace PlayerController
 
         public RunData RunData;
         public JumpData JumpData;
+        public AttackData AttackData;
 
         #endregion
 
@@ -22,6 +24,8 @@ namespace PlayerController
         public Vector3 InputMoveDirection { get; set; }
         public bool CanJump { get; set; } = false;
         public bool IsJumpPressed { get; set; }
+        
+        public bool IsAttacking { get; set; }
 
         #endregion
 

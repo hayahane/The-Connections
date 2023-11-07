@@ -31,7 +31,7 @@ namespace Monologist.Patterns.State
                 return;
             }
 #if UNITY_EDITOR
-            Debug.Log($"Change to state:{stateName}");
+            //Debug.Log($"Change to state:{stateName}");
 #endif
             CurrentStateName = stateName;
             TransitTo(nextState);

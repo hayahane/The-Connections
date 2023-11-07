@@ -53,6 +53,11 @@ namespace PlayerController.States
                 _psm.TransitTo("Fall State");
                 return;
             }
+
+            if (_psm.PC.IsAttacking)
+            {
+                _psm.TransitTo("Attack State");
+            }
         }
 
         public void FixedUpdate()

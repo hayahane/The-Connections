@@ -1,7 +1,9 @@
 using System;
 using System.Linq;
+using PlayerController.HUD;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Interactions;
 
 namespace PlayerController
 {
@@ -15,6 +17,7 @@ namespace PlayerController
         public PlayerController PlayerController;
         public CameraController CamControl;
         public ConnectionScanner Scanner;
+        public InstanceSelector Selector;
 
         private bool _isMouseLocked = true;
 
@@ -33,6 +36,11 @@ namespace PlayerController
 
             _playerInput.actions["Scan"].started += OnScanInput;
 
+            _playerInput.actions["Attack"].performed += OnAttackInput;
+            _playerInput.actions["Attack"].canceled += OnAttackInput;
+
+            _playerInput.actions["Connect"].performed += OnConnectInput;
+
             _playerInput.actions["UnlockMouse"].performed += UnlockMouse;
         }
 
@@ -48,6 +56,13 @@ namespace PlayerController
             _playerInput.actions["Aim"].canceled -= OnAimInput;
 
             _playerInput.actions["Scan"].started -= OnScanInput;
+
+            _playerInput.actions["Attack"].performed -= OnAttackInput;
+            _playerInput.actions["Attack"].canceled -= OnAttackInput;
+
+            _playerInput.actions["Connect"].performed -= OnConnectInput;
+
+            _playerInput.actions["UnlockMouse"].performed -= UnlockMouse;
         }
 
         private void Update()
@@ -101,9 +116,35 @@ namespace PlayerController
             Scanner.TriggerScanPulse();
         }
 
+        private void OnAttackInput(InputAction.CallbackContext context)
+        {
+            if (context.canceled)
+            {
+                PlayerController.IsAttacking = false;
+                return;
+            }
+
+            PlayerController.IsAttacking = true;
+        }
+
+        private void OnConnectInput(InputAction.CallbackContext context)
+        {
+            if (context.interaction is HoldInteraction)
+            {
+                Selector.ReleaseSourceAttribute();
+                return;
+            }
+
+            if (context.interaction is PressInteraction)
+            {
+                Selector.ConnectToInstance();
+                Selector.TakeSourceAttribute();
+                return;
+            }
+        }
+
         private void UnlockMouse(InputAction.CallbackContext context)
         {
-            
         }
 
         #endregion
