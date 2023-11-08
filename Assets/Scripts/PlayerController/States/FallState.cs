@@ -32,7 +32,7 @@ namespace PlayerController.States
 
         public void FixedUpdate()
         {
-            _psm.Kcc.MoveByVelocity(_psm.Kcc.BaseVelocity + _psm.Kcc.Gravity * Time.deltaTime);
+            _psm.Kcc.MoveByVelocity(_psm.Kcc.CurrentVelocity + _psm.Kcc.Gravity * Time.deltaTime);
         }
 
         public void OnExit()

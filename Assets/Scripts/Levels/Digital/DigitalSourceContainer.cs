@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using PlayerController.HUD;
 using UnityEngine;
 using UnityEngine.Pool;
 
@@ -13,7 +14,8 @@ namespace Levels
 
         private ObjectPool<LineConnector> _linePool;
         public ObjectPool<LineConnector> LinePool => _linePool;
-        public List<Transform> ConnectTargets = new List<Transform>();
+        public List<DigitalInstance> ConnectTargets = new List<DigitalInstance>();
+        private bool _initialized = false;
 
         private void Start()
         {
@@ -28,16 +30,32 @@ namespace Levels
 
                     return lineConnector;
                 },
-                line =>
-                {
-                    line.gameObject.SetActive(true);
-                },
+                line => { line.gameObject.SetActive(true); },
                 line =>
                 {
                     line.gameObject.SetActive(false);
                     line.Target = null;
                     line.Instance = null;
                 }, defaultCapacity: 4, maxSize: 16);
+        }
+
+        private void Update()
+        {
+            if (!_initialized)
+            {
+                foreach (var instance in ConnectTargets)
+                {
+                    var line = _linePool.Get();
+                    line.SetColor(AttributeTableManager.Instance.Table.Colors[(int)_digitalAttributeContainer.DaType / 2]);
+                    line.Instance = instance;
+                    line.Target = instance.transform;
+                    instance.SetColor(
+                        AttributeTableManager.Instance.Table.Colors[(int)_digitalAttributeContainer.DaType / 2]);
+                    instance.OverrideAttributeContainer = _digitalAttributeContainer;
+                }
+
+                _initialized = true;
+            }
         }
     }
 }

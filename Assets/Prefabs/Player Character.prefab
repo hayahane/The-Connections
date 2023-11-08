@@ -10050,7 +10050,7 @@ MonoBehaviour:
   CurrentGroundState: 1
   GroundLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 9
   MaxSnapSpeed: 20
   _attachedDynamicPlatform: {fileID: 0}
 --- !u!114 &3909941006830422624
@@ -10318,7 +10318,6 @@ MonoBehaviour:
     m_Bits: 256
   _detectBox: {x: 1, y: 1.8, z: 1}
   _hintController: {fileID: 0}
-  _table: {fileID: 11400000, guid: 39a99ee96e0e68041bdc4a8e2fb6c33e, type: 2}
   _handTarget: {fileID: 3586756998685255736}
 --- !u!1 &7234525149441693709
 GameObject:
@@ -11111,7 +11110,7 @@ Transform:
   m_GameObject: {fileID: 8086013033026434526}
   serializedVersion: 2
   m_LocalRotation: {x: -0.073694766, y: -0.10133743, z: 0.61469233, w: 0.778751}
-  m_LocalPosition: {x: -0.3967594, y: 0.90090036, z: -0.07832885}
+  m_LocalPosition: {x: -0.3967595, y: 0.90090024, z: -0.07832861}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -11936,7 +11935,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AngleClampX: {x: -40, y: 70}
   AimInput: {x: 0, y: 0}
-  IsFocusing: 0
   _focusCamera: {fileID: 0}
 --- !u!1 &8639759660392472773
 GameObject:

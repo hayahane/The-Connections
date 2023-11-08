@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c59f925d0ccb411cb29f2699bc34761a, type: 3}
   m_Name: JumpData
   m_EditorClassIdentifier: 
-  MaxJumpHeight: 2
-  MinJumpHeight: 1.5
+  MaxJumpHeight: 1.5
+  MinJumpHeight: 0.8
   HorizontalSpeedLimit: 2

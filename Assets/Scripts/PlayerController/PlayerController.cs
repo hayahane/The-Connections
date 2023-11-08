@@ -32,7 +32,7 @@ namespace PlayerController
         void Start()
         {
             _psm = new PlayerStateMachine(this);
-            _psm.TransitTo("Fall State");
+            _psm.TransitTo("Run State");
         }
 
         private void OnEnable()

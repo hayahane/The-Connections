@@ -352,14 +352,14 @@ namespace Monologist.KCC
 
             for (int i = 0; i < MaxGroundProbingIteration; i++)
             {
-                _internalHitInfoCount = CharacterSweepMulti(transientPosition, transientRotation, probeDirection,
+                _internalHitInfoCount = CharacterSweepMulti(transientPosition + CharacterUp * GroundDetectOffset, transientRotation, probeDirection,
                     groundDetectDistance + MoveOffset, out closetHitInfo, out _, GroundLayer, _internalSweepHitInfos,
                     IsColliderValid);
 
                 if (_internalHitInfoCount <= 0) break;
 
                 foundAnySurface = true;
-                snapPosition += probeDirection * Mathf.Max(closetHitInfo.distance - MoveOffset, 0f);
+                snapPosition += probeDirection * Mathf.Max(closetHitInfo.distance - GroundDetectOffset - MoveOffset, 0f);
                 closetHitInfo.normal = (closetHitInfo.normal + transientGroundNormal).normalized;
 
                 #region Secondary Probe

@@ -34,6 +34,7 @@ namespace PlayerController.States
             var rot = forward == Vector3.zero?_psm.PC.transform.rotation:Quaternion.LookRotation(forward, _psm.Kcc.CharacterUp);
             rot = Quaternion.Slerp(rot, _psm.PC.transform.rotation, _psm.RunData.RotateSpeed);
             _psm.PC.transform.rotation = rot;
+            _psm.Kcc.MoveRotation(rot);
             
             // Set animator params
             var speed = Mathf.Clamp(_psm.Kcc.BaseVelocity.magnitude / 2f, 0, 1);

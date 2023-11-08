@@ -6,7 +6,7 @@ namespace PlayerController.States
     public class AttackState : IState
     {
         private readonly PlayerStateMachine _psm;
-        
+
         private float _attackPlayTime;
         private int _currentIndex;
         private AttackStateData _currentAttackData;
@@ -16,23 +16,29 @@ namespace PlayerController.States
         {
             _psm = psm;
         }
-        
+
         private void SetNextAttack()
         {
-            _currentIndex = (_currentIndex+1) % _psm.AttackData.AttackStates.Length;
+            _currentIndex = (_currentIndex + 1) % _psm.AttackData.AttackStates.Length;
             _attackPlayTime = 0;
-            
+
             _isKeepAttack = false;
             _currentAttackData = _psm.AttackData.AttackStates[_currentIndex];
-            
-            _psm.PC.PlayAnimator.CrossFade(_currentAttackData.AnimationName, 0.1f);
+
+            if (_currentIndex > 0)
+                _psm.PC.PlayAnimator.CrossFade(_currentAttackData.AnimationName, 0.1f);
+            else
+            {
+                _psm.PC.PlayAnimator.Play(_currentAttackData.AnimationName);
+            }
         }
-        
+
         #region State Implements
+
         public void OnEnter()
         {
             _currentIndex = -1;
-            
+
             SetNextAttack();
         }
 

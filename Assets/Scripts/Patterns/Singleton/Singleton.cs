@@ -31,10 +31,10 @@ namespace Monologist.Patterns.Singleton
             gameObj.name = typeof(T).Name;
 
             _instance = gameObj.AddComponent<T>();
-            _instance.SetPersisdent(gameObj);
+            _instance.SetPersistent(gameObj);
         }
 
-        protected virtual void SetPersisdent(GameObject gameObj)
+        protected virtual void SetPersistent(GameObject gameObj)
         {
         }
 
@@ -57,9 +57,9 @@ namespace Monologist.Patterns.Singleton
         }
     }
 
-    public class SingletonPersisdent<T> : Singleton<T> where T : Singleton<T>, new()
+    public class SingletonPersistent<T> : Singleton<T> where T : Singleton<T>, new()
     {
-        protected override void SetPersisdent(GameObject gameObj)
+        protected override void SetPersistent(GameObject gameObj)
         {
             DontDestroyOnLoad(gameObj);
         }

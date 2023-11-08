@@ -40,7 +40,7 @@ namespace PlayerController.States
             var a = 2 * (_psm.JumpData.MaxJumpHeight - _psm.JumpData.MinJumpHeight) / (_initSpeed * _initSpeed) +
                     1 / _gravity;
             _jumpAcceleration = _gravity - 1 / a;
-            var horizontalVelocity = Vector3.ProjectOnPlane(_psm.Kcc.BaseVelocity, _psm.Kcc.CharacterUp);
+            var horizontalVelocity = Vector3.ProjectOnPlane(_psm.Kcc.CurrentVelocity, _psm.Kcc.CharacterUp);
             horizontalVelocity = horizontalVelocity.normalized *
                                  Mathf.Min(horizontalVelocity.magnitude, _psm.JumpData.HorizontalSpeedLimit);
             var velocity = horizontalVelocity + _initSpeed * _psm.Kcc.CharacterUp;
@@ -56,6 +56,7 @@ namespace PlayerController.States
             var rot = forward == Vector3.zero?_psm.PC.transform.rotation:Quaternion.LookRotation(forward, _psm.Kcc.CharacterUp);
             rot = Quaternion.Slerp(rot, _psm.PC.transform.rotation, _psm.RunData.RotateSpeed);
             _psm.PC.transform.rotation = rot;
+            _psm.Kcc.MoveRotation(rot);
             
             if (_psm.Kcc.CurrentGroundState == GroundState.Floating)
             {

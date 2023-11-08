@@ -50,7 +50,6 @@ namespace PlayerController.HUD
 
         [SerializeField] private Vector3 _detectBox = new Vector3(1, 1.8f, 1);
         [SerializeField] private SelectHintController _hintController;
-        [SerializeField] private AttributeTable _table;
         
         private DigitalSourceContainer _container;
         private DigitalSourceContainer _inHandContainer;
@@ -147,7 +146,7 @@ namespace PlayerController.HUD
                 if (Instances[i].OverrideAttributeContainer is null)
                     _crossHairs[i].SetSlot(null);
                 else
-                    _crossHairs[i].SetSlot(_table.Table[Instances[i].OverrideAttributeContainer.AttributeName]);
+                    _crossHairs[i].SetSlot(AttributeTableManager.Instance.Table.Table[Instances[i].OverrideAttributeContainer.AttributeName]);
             }
 
             if (lockIndex >= 0)
@@ -167,7 +166,7 @@ namespace PlayerController.HUD
                 return;
             }
 
-            _hintController.SetSprite(_table.Table[_container.DAttributeContainer.AttributeName]);
+            _hintController.SetSprite(AttributeTableManager.Instance.Table.Table[_container.DAttributeContainer.AttributeName]);
             _hintController.Show();
             var position = _camera.WorldToViewportPoint(_container.transform.position);
             position.x = Mathf.Clamp(position.x, 0, 1);
@@ -232,7 +231,7 @@ namespace PlayerController.HUD
             _inHandLine = _inHandContainer.LinePool.Get();
             _inHandLine.Target = _handTarget;
             _inHandLine.DigitalShower.ShowDigitalSource();
-            _inHandLine.SetColor(_table.Colors[(int)_inHandContainer.DAttributeContainer.DaType / 2]);
+            _inHandLine.SetColor(AttributeTableManager.Instance.Table.Colors[(int)_inHandContainer.DAttributeContainer.DaType / 2]);
 
             Origin = _inHandContainer.transform;
         }
@@ -245,7 +244,7 @@ namespace PlayerController.HUD
             _inHandLine = null;
             _inHandContainer = null;
 
-            Origin = transform;
+            Origin = this.transform;
         }
 
         public void ConnectToInstance()
@@ -255,12 +254,14 @@ namespace PlayerController.HUD
             if (CurrentInstance.OverrideAttributeContainer != null) return;
             
             CurrentInstance.OverrideAttributeContainer = _inHandContainer.DAttributeContainer;
-            CurrentInstance.SetColor(_table.Colors[(int)_inHandContainer.DAttributeContainer.DaType/2]);
+            CurrentInstance.SetColor(AttributeTableManager.Instance.Table.Colors[(int)_inHandContainer.DAttributeContainer.DaType/2]);
             _inHandLine.Target = CurrentInstance.transform;
             _inHandLine.Instance = CurrentInstance;
             
             _inHandLine = null;
             _inHandContainer = null;
+
+            Origin = transform;
         }
     }
 }
