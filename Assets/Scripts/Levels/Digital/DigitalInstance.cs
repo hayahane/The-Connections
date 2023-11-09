@@ -21,12 +21,7 @@ namespace Levels
             get => _overrideAttributeContainer;
         }
 
-        private Renderer _renderer;
-
-        private void Start()
-        {
-            _renderer = GetComponent<Renderer>();
-        }
+        [SerializeField] private Renderer _renderer;
 
         public void SetColor(Color color)
         {

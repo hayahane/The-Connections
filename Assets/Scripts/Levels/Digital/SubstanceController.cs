@@ -14,8 +14,11 @@ namespace Levels
         [SerializeField] private bool _isOriginallyVirtual = false;
         public bool IsOriginallyVirtual => _isOriginallyVirtual;
 
+        private Material[] _materialBuffer;
+
         private void OnEnable()
         {
+            _materialBuffer = _renderer.materials;
             if (_isOriginallyVirtual)
             {
                 SetVirtual();
@@ -29,13 +32,25 @@ namespace Levels
         public void SetSubstance()
         {
             _collider.isTrigger = false;
-            _renderer.material = _substanceMaterial;
+            
+            for (int i = 0; i < _materialBuffer.Length; i++)
+            {
+                _materialBuffer[i] = _substanceMaterial;
+            }
+
+            _renderer.materials = _materialBuffer;
         }
 
         public void SetVirtual()
         {
             _collider.isTrigger = true;
-            _renderer.material = _virtualMaterial;
+            
+            for (int i = 0; i < _materialBuffer.Length; i++)
+            {
+                _materialBuffer[i] = _virtualMaterial;
+            }
+
+            _renderer.materials = _materialBuffer;
         }
     }
 }
