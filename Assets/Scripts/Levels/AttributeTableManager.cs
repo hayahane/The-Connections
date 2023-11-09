@@ -1,5 +1,5 @@
 using Monologist.Patterns.Singleton;
-using PlayerController.HUD;
+using Character.HUD;
 
 namespace Levels
 {

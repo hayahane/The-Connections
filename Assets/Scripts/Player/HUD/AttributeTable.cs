@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace PlayerController.HUD
+namespace Character.HUD
 {
     [CreateAssetMenu(menuName = "Attribute Table", fileName = "AttributeTable", order = 0)]
     public class AttributeTable : SerializedScriptableObject

@@ -4,7 +4,7 @@ using Levels;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerController.HUD
+namespace Character.HUD
 {
     public class InstanceSelector : MonoBehaviour
     {
@@ -257,6 +257,8 @@ namespace PlayerController.HUD
             CurrentInstance.SetColor(AttributeTableManager.Instance.Table.Colors[(int)_inHandContainer.DAttributeContainer.DaType/2]);
             _inHandLine.Target = CurrentInstance.transform;
             _inHandLine.Instance = CurrentInstance;
+            
+            _inHandContainer.ConnectTargets.Add(CurrentInstance);
             
             _inHandLine = null;
             _inHandContainer = null;

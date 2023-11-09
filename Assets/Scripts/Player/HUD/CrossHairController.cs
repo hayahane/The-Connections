@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Image = UnityEngine.UI.Image;
 
-namespace PlayerController.HUD
+namespace Character.HUD
 {
     public class CrossHairController : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace PlayerController
+namespace Character.CharacterData
 {
     [CreateAssetMenu(menuName = "Player Config Data/JumpData", fileName = "JumpData", order = 0)]
     public class JumpData : ScriptableObject

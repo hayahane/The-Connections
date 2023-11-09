@@ -2,7 +2,7 @@ using Levels;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
-namespace PlayerController
+namespace Player
 {
     public class ConnectionScanner : MonoBehaviour
     {

@@ -1,14 +1,15 @@
 using System;
+using Character.CharacterData;
+using Character.States;
 using Monologist.KCC;
 using Monologist.Patterns.State;
-using PlayerController.States;
 
-namespace PlayerController
+namespace Character
 {
     [Serializable]
-    public class PlayerStateMachine : StateMachine
+    public class CharacterStateMachine : StateMachine
     {
-        public readonly PlayerController PC;
+        public readonly CharacterController PC;
 
         #region Player Date Properties
 
@@ -19,7 +20,7 @@ namespace PlayerController
 
         #endregion
 
-        public PlayerStateMachine(PlayerController pc)
+        public CharacterStateMachine(CharacterController pc)
         {
             PC = pc;
             InitializeStates();

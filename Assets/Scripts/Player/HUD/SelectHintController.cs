@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace PlayerController.HUD
+namespace Character.HUD
 {
     public class SelectHintController : MonoBehaviour
     {

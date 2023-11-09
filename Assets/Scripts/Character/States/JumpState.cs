@@ -2,11 +2,11 @@ using Monologist.KCC;
 using Monologist.Patterns.State;
 using UnityEngine;
 
-namespace PlayerController.States
+namespace Character.States
 {
     public class JumpState : IState
     {
-        private readonly PlayerStateMachine _psm;
+        private readonly CharacterStateMachine _psm;
         private static readonly int Jump = Animator.StringToHash("Jump");
 
         private bool _isOffGround = false;
@@ -14,7 +14,7 @@ namespace PlayerController.States
         private float _jumpAcceleration = 0f;
         private float _gravity = 0f;
 
-        public JumpState(PlayerStateMachine psm)
+        public JumpState(CharacterStateMachine psm)
         {
             _psm = psm;
         }

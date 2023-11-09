@@ -2,14 +2,14 @@ using Monologist.KCC;
 using Monologist.Patterns.State;
 using UnityEngine;
 
-namespace PlayerController.States
+namespace Character.States
 {
     public class FallState : IState
     {
-        private readonly PlayerStateMachine _psm;
+        private readonly CharacterStateMachine _psm;
         private static readonly int IsFalling = Animator.StringToHash("IsFalling");
 
-        public FallState(PlayerStateMachine psm)
+        public FallState(CharacterStateMachine psm)
         {
             _psm = psm;
         }

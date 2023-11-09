@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace PlayerController
+namespace Character.CharacterData
 {
     [CreateAssetMenu(menuName = "Player Config Data/RunData", fileName = "RunData", order = 0)]
     public class RunData : ScriptableObject

@@ -1,15 +1,15 @@
+using Character.CharacterData;
 using Monologist.KCC;
 using UnityEngine;
-using UnityEngine.Animations;
 
-namespace PlayerController
+namespace Character
 {
-    public class PlayerController : MonoBehaviour
+    public class CharacterController : MonoBehaviour
     {
         public KinematicCharacterController Kcc;
         public Animator PlayAnimator;
         [SerializeField]
-        private PlayerStateMachine _psm;
+        private CharacterStateMachine _psm;
 
         #region Player Config Data
 
@@ -31,7 +31,7 @@ namespace PlayerController
 
         void Start()
         {
-            _psm = new PlayerStateMachine(this);
+            _psm = new CharacterStateMachine(this);
             _psm.TransitTo("Run State");
         }
 

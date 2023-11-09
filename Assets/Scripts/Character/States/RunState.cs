@@ -2,16 +2,16 @@ using Monologist.KCC;
 using Monologist.Patterns.State;
 using UnityEngine;
 
-namespace PlayerController.States
+namespace Character.States
 {
     public class RunState : IState
     {
-        private readonly PlayerStateMachine _psm;
+        private readonly CharacterStateMachine _psm;
         private static readonly int Grounded = Animator.StringToHash("Grounded");
         private static readonly int Speed = Animator.StringToHash("Speed");
         private static readonly int MotionSpeed = Animator.StringToHash("MotionSpeed");
 
-        public RunState(PlayerStateMachine psm)
+        public RunState(CharacterStateMachine psm)
         {
             _psm = psm;
         }

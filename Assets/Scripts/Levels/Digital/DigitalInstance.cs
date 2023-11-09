@@ -22,6 +22,7 @@ namespace Levels
         }
 
         [SerializeField] private Renderer _renderer;
+        public LineConnector Line;
 
         public void SetColor(Color color)
         {

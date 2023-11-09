@@ -1,18 +1,19 @@
+using Character.CharacterData;
 using Monologist.Patterns.State;
 using UnityEngine;
 
-namespace PlayerController.States
+namespace Character.States
 {
     public class AttackState : IState
     {
-        private readonly PlayerStateMachine _psm;
+        private readonly CharacterStateMachine _psm;
 
         private float _attackPlayTime;
         private int _currentIndex;
         private AttackStateData _currentAttackData;
         private bool _isKeepAttack = false;
 
-        public AttackState(PlayerStateMachine psm)
+        public AttackState(CharacterStateMachine psm)
         {
             _psm = psm;
         }

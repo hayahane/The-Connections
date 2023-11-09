@@ -1,7 +1,7 @@
 using Levels;
 using UnityEngine;
 
-namespace PlayerController
+namespace Character.Battle
 {
     public class SwordAttackManager : MonoBehaviour
     {

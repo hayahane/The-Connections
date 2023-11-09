@@ -1,11 +1,12 @@
-using System;
-using System.Linq;
-using PlayerController.HUD;
+using Character;
+using Character.HUD;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
+using UnityEngine.Serialization;
+using CharacterController = Character.CharacterController;
 
-namespace PlayerController
+namespace Player
 {
     [RequireComponent(typeof(PlayerInput))]
     public class InputController : MonoBehaviour
@@ -14,7 +15,7 @@ namespace PlayerController
         public bool IsUsingMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
         public Transform CameraTransform;
-        public PlayerController PlayerController;
+        [FormerlySerializedAs("PlayerController")] public CharacterController Character;
         public CameraController CamControl;
         public ConnectionScanner Scanner;
         public InstanceSelector Selector;
@@ -79,12 +80,12 @@ namespace PlayerController
         {
             if (context.canceled)
             {
-                PlayerController.InputMoveDirection = Vector3.zero;
+                Character.InputMoveDirection = Vector3.zero;
                 return;
             }
 
             var inputRaw = context.ReadValue<Vector2>();
-            PlayerController.InputMoveDirection = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0) *
+            Character.InputMoveDirection = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0) *
                                                   new Vector3(inputRaw.x, 0, inputRaw.y);
         }
 
@@ -92,11 +93,11 @@ namespace PlayerController
         {
             if (context.canceled)
             {
-                PlayerController.IsJumpPressed = false;
+                Character.IsJumpPressed = false;
                 return;
             }
 
-            PlayerController.IsJumpPressed = true;
+            Character.IsJumpPressed = true;
         }
 
         private void OnAimInput(InputAction.CallbackContext context)
@@ -124,11 +125,11 @@ namespace PlayerController
         {
             if (context.canceled)
             {
-                PlayerController.IsAttacking = false;
+                Character.IsAttacking = false;
                 return;
             }
 
-            PlayerController.IsAttacking = true;
+            Character.IsAttacking = true;
         }
 
         private void OnConnectInput(InputAction.CallbackContext context)

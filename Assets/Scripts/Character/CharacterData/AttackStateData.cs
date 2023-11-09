@@ -1,7 +1,6 @@
 using System;
-using UnityEngine;
 
-namespace PlayerController
+namespace Character.CharacterData
 {
     [Serializable]
     public class AttackStateData

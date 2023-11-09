@@ -18,6 +18,8 @@ namespace Levels
             _line.Instance.OverrideAttributeContainer = null;
             _line.Instance.SetColor(new Color(1.1f,1.1f,1.1f));
             _line.Source.LinePool.Release(_line);
+            _line.Source.ConnectTargets.Remove(_line.Instance);
+            _line.Instance.Line = null;
         }
     }
 }
