@@ -108,7 +108,11 @@ namespace PlayerController
             }
 
             CamControl.AimInput = context.ReadValue<Vector2>();
+#if UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
+            CamControl.AimInput *= IsUsingMouse ? 10 : Time.deltaTime;
+#else
             CamControl.AimInput *= IsUsingMouse ? 1 : Time.deltaTime;
+#endif
         }
 
         private void OnScanInput(InputAction.CallbackContext context)

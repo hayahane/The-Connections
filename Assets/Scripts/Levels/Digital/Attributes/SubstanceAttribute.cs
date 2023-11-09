@@ -10,13 +10,13 @@ namespace Levels
 
         public override void OnAdd(DigitalInstance instance)
         {
-            var substance = instance.GetComponent<SubstanceController>();
+            var substance = instance.GetComponentInChildren<SubstanceController>();
             substance.SetSubstance();
         }
 
         public override void OnRemove(DigitalInstance instance)
         {
-            var substance = instance.GetComponent<SubstanceController>();
+            var substance = instance.GetComponentInChildren<SubstanceController>();
             
             if (substance.IsOriginallyVirtual)
                 substance.SetVirtual();
