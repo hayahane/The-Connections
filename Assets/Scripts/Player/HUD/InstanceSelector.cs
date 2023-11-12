@@ -253,12 +253,8 @@ namespace Character.HUD
             if (_inHandContainer == null) return;
             if (CurrentInstance.OverrideAttributeContainer != null) return;
             
-            CurrentInstance.OverrideAttributeContainer = _inHandContainer.DAttributeContainer;
-            CurrentInstance.SetColor(AttributeTableManager.Instance.Table.Colors[(int)_inHandContainer.DAttributeContainer.DaType/2]);
-            _inHandLine.Target = CurrentInstance.transform;
-            _inHandLine.Instance = CurrentInstance;
-            
-            _inHandContainer.ConnectTargets.Add(CurrentInstance);
+            _inHandContainer.LinePool.Release(_inHandLine);
+            _inHandContainer.ResetUnstable(CurrentInstance);
             
             _inHandLine = null;
             _inHandContainer = null;

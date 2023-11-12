@@ -9,7 +9,7 @@ namespace Character
     [Serializable]
     public class CharacterStateMachine : StateMachine
     {
-        public readonly CharacterController PC;
+        public readonly PlayerCharacterController PC;
 
         #region Player Date Properties
 
@@ -20,7 +20,7 @@ namespace Character
 
         #endregion
 
-        public CharacterStateMachine(CharacterController pc)
+        public CharacterStateMachine(PlayerCharacterController pc)
         {
             PC = pc;
             InitializeStates();

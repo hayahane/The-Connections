@@ -386,7 +386,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Container: {fileID: 9078942622975276174}
   m_RebuildOnSplineChange: 1
-  m_RebuildFrequency: 30
+  m_RebuildFrequency: 6
   m_UpdateColliders: 1
   m_Sides: 16
   m_SegmentsPerUnit: 16

@@ -8,5 +8,6 @@ namespace Character.CharacterData
         public float MaxJumpHeight = 1f;
         public float MinJumpHeight = 0.5f;
         public float HorizontalSpeedLimit = 2f;
+        public float CostEnergy = 8f;
     }
 }

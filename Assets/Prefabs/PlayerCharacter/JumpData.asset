@@ -15,3 +15,4 @@ MonoBehaviour:
   MaxJumpHeight: 1.5
   MinJumpHeight: 0.8
   HorizontalSpeedLimit: 2
+  CostEnergy: 8

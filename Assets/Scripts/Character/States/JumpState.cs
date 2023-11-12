@@ -23,6 +23,8 @@ namespace Character.States
 
         public void OnEnter()
         {
+            _psm.PC.CurrentEnergy -= _psm.JumpData.CostEnergy;
+            
             // Reset state variables
             _isOffGround = false;
 

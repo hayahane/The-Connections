@@ -16,9 +16,12 @@ MonoBehaviour:
   - AttackTime: 1
     TimeForInput: 0.4
     AnimationName: Attack1
+    CostEnergy: 5
   - AttackTime: 1
     TimeForInput: 0.44
     AnimationName: Attack2
+    CostEnergy: 5
   - AttackTime: 0.9666667
     TimeForInput: 0.4
     AnimationName: Attack3
+    CostEnergy: 8

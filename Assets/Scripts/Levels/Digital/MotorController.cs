@@ -1,4 +1,5 @@
 using System;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -13,7 +14,7 @@ namespace Levels
         public bool IsOriginallyStatic => _isOriginallyStatic;
 
         private float _currentProcess = 0;
-        private float _direction = 1;
+        public float Direction = 1;
 
         private void OnEnable()
         {
@@ -24,8 +25,9 @@ namespace Levels
         {
             if (!IsStatic)
             {
-                _currentProcess += Speed * Time.deltaTime * _direction;
-                if (_currentProcess > 1 || _currentProcess < 0) _direction *= -1;
+                _currentProcess += Speed * Time.deltaTime * Direction;
+                if (_currentProcess >= 1 || _currentProcess <= 0) Direction *= -1;
+                _currentProcess = Mathf.Clamp(_currentProcess, 0, 1);
 
                 _splineAnimate.ElapsedTime = _currentProcess;
             }

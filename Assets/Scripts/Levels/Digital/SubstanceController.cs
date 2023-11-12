@@ -1,15 +1,15 @@
 using System;
 using System.Net.NetworkInformation;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Levels
 {
     public class SubstanceController : MonoBehaviour
     {
-        [SerializeField] private Collider _collider;
+        [FormerlySerializedAs("_collider")] public Collider Collider;
         [SerializeField] private Renderer _renderer;
-        [SerializeField] private Material _virtualMaterial;
-        [SerializeField] private Material _substanceMaterial;
+        [FormerlySerializedAs("_virtualMaterial")] public Material VirtualMaterial;
 
         [SerializeField] private bool _isOriginallyVirtual = false;
         public bool IsOriginallyVirtual => _isOriginallyVirtual;
@@ -31,26 +31,22 @@ namespace Levels
 
         public void SetSubstance()
         {
-            _collider.isTrigger = false;
-            
-            for (int i = 0; i < _materialBuffer.Length; i++)
-            {
-                _materialBuffer[i] = _substanceMaterial;
-            }
+            Collider.enabled = true;
 
             _renderer.materials = _materialBuffer;
         }
 
         public void SetVirtual()
         {
-            _collider.isTrigger = true;
-            
+            Collider.enabled = false;
+
+            var matBuffer = _renderer.materials;
             for (int i = 0; i < _materialBuffer.Length; i++)
             {
-                _materialBuffer[i] = _virtualMaterial;
+                matBuffer[i] = VirtualMaterial;
             }
 
-            _renderer.materials = _materialBuffer;
+            _renderer.materials = matBuffer;
         }
     }
 }

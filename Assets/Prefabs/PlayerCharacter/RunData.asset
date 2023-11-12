@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c26868cc429a18459fb42a64eb62318, type: 3}
   m_Name: RunData
   m_EditorClassIdentifier: 
-  RunSpeed: 5
+  RunSpeed: 4
+  SprintSpeed: 6
   Acceleration: 8
   AccelerationModifier:
     serializedVersion: 2
@@ -56,3 +57,4 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  RotateSpeed: 0.8

@@ -15,11 +15,15 @@ namespace Levels
         public void OnAttack()
         {
             Debug.Log("Line Attacked");
-            _line.Instance.OverrideAttributeContainer = null;
-            _line.Instance.SetColor(new Color(1.1f,1.1f,1.1f));
-            _line.Source.LinePool.Release(_line);
+            if (_line.Instance is not null)
+            {
+                _line.Instance.OverrideAttributeContainer = null;
+                _line.Instance.Line = null;
+                _line.Instance.SetColor(new Color(1.1f, 1.1f, 1.1f));
+            }
             _line.Source.ConnectTargets.Remove(_line.Instance);
-            _line.Instance.Line = null;
+            _line.Source.StartRecover(_line.Instance);
+            _line.Source.LinePool.Release(_line);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace Levels
         
         public override void OnAdd(DigitalInstance instance)
         {
-            var substance = instance.GetComponent<SubstanceController>();
+            var substance = instance.GetComponentInChildren<SubstanceController>();
             if (substance == null)
             {
                 return;
@@ -19,7 +19,7 @@ namespace Levels
 
         public override void OnRemove(DigitalInstance instance)
         {
-            var substance = instance.GetComponent<SubstanceController>();
+            var substance = instance.GetComponentInChildren<SubstanceController>();
             if (substance == null)
             {
                 return;

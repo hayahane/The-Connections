@@ -8,5 +8,6 @@ namespace Character.CharacterData
         public float AttackTime;
         public float TimeForInput;
         public string AnimationName;
+        public float CostEnergy;
     }
 }

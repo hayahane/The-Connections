@@ -7,7 +7,7 @@ namespace Levels
 
         public override void OnAdd(DigitalInstance instance)
         {
-            var motor = instance.GetComponent<MotorController>();
+            var motor = instance.GetComponentInChildren<MotorController>();
             if (motor == null) return;
 
             motor.IsStatic = false;
@@ -15,12 +15,12 @@ namespace Levels
 
         public override void OnRemove(DigitalInstance instance)
         {
-            var motor = instance.GetComponent<MotorController>();
+            var motor = instance.GetComponentInChildren<MotorController>();
             if (motor == null) return;
 
             if (motor.IsOriginallyStatic)
             {
-                motor.IsStatic = false;
+                motor.IsStatic = true;
             }
         }
     }

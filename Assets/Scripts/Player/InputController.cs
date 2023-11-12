@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Interactions;
 using UnityEngine.Serialization;
-using CharacterController = Character.CharacterController;
 
 namespace Player
 {
@@ -15,7 +14,7 @@ namespace Player
         public bool IsUsingMouse => _playerInput.currentControlScheme == "KeyboardMouse";
 
         public Transform CameraTransform;
-        [FormerlySerializedAs("PlayerController")] public CharacterController Character;
+        public PlayerCharacterController PlayerCharacter;
         public CameraController CamControl;
         public ConnectionScanner Scanner;
         public InstanceSelector Selector;
@@ -28,6 +27,9 @@ namespace Player
 
             _playerInput.actions["Move"].performed += OnMoveInput;
             _playerInput.actions["Move"].canceled += OnMoveInput;
+
+            _playerInput.actions["Sprint"].started += OnSprintInput;
+            _playerInput.actions["Sprint"].canceled += OnSprintInput;
 
             _playerInput.actions["Jump"].started += OnJumpInput;
             _playerInput.actions["Jump"].canceled += OnJumpInput;
@@ -49,6 +51,9 @@ namespace Player
         {
             _playerInput.actions["Move"].performed -= OnMoveInput;
             _playerInput.actions["Move"].canceled -= OnMoveInput;
+            
+            _playerInput.actions["Sprint"].started -= OnSprintInput;
+            _playerInput.actions["Sprint"].canceled -= OnSprintInput;
 
             _playerInput.actions["Jump"].performed -= OnJumpInput;
             _playerInput.actions["Jump"].canceled -= OnJumpInput;
@@ -80,24 +85,35 @@ namespace Player
         {
             if (context.canceled)
             {
-                Character.InputMoveDirection = Vector3.zero;
+                PlayerCharacter.InputMoveDirection = Vector3.zero;
                 return;
             }
 
             var inputRaw = context.ReadValue<Vector2>();
-            Character.InputMoveDirection = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0) *
+            PlayerCharacter.InputMoveDirection = Quaternion.Euler(0, CameraTransform.eulerAngles.y, 0) *
                                                   new Vector3(inputRaw.x, 0, inputRaw.y);
+        }
+
+        private void OnSprintInput(InputAction.CallbackContext context)
+        {
+            if (context.started)
+            {
+                PlayerCharacter.IsSprinting = true;
+                return;
+            }
+
+            PlayerCharacter.IsSprinting = false;
         }
 
         private void OnJumpInput(InputAction.CallbackContext context)
         {
             if (context.canceled)
             {
-                Character.IsJumpPressed = false;
+                PlayerCharacter.IsJumpPressed = false;
                 return;
             }
 
-            Character.IsJumpPressed = true;
+            PlayerCharacter.IsJumpPressed = true;
         }
 
         private void OnAimInput(InputAction.CallbackContext context)
@@ -125,11 +141,11 @@ namespace Player
         {
             if (context.canceled)
             {
-                Character.IsAttacking = false;
+                PlayerCharacter.IsAttacking = false;
                 return;
             }
 
-            Character.IsAttacking = true;
+            PlayerCharacter.IsAttacking = true;
         }
 
         private void OnConnectInput(InputAction.CallbackContext context)

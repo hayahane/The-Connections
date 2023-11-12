@@ -25,6 +25,7 @@ namespace Character.States
 
             _isKeepAttack = false;
             _currentAttackData = _psm.AttackData.AttackStates[_currentIndex];
+            _psm.PC.CurrentEnergy -= _currentAttackData.CostEnergy;
 
             if (_currentIndex > 0)
                 _psm.PC.PlayAnimator.CrossFade(_currentAttackData.AnimationName, 0.1f);
@@ -55,7 +56,9 @@ namespace Character.States
 
             if (_attackPlayTime > _currentAttackData.AttackTime)
             {
-                if (!_isKeepAttack) _psm.TransitTo("Run State");
+                if (!_isKeepAttack || _psm.PC.CurrentEnergy < _psm.AttackData
+                        .AttackStates[(_currentIndex + 1) % _psm.AttackData.AttackStates.Length]
+                        .CostEnergy) _psm.TransitTo("Run State");
                 else
                 {
                     SetNextAttack();

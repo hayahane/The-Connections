@@ -141,6 +141,6 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _ScanColor: {r: 2, g: 1.1507658, b: 0.19800007, a: 1}
-    - _ScanOrigin: {r: 4.617271, g: -3.8493097, b: 4.6512465, a: 0}
+    - _ScanOrigin: {r: 44.624336, g: -0.6577637, b: 180.6896, a: 0}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []

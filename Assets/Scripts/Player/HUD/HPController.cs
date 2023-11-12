@@ -6,9 +6,8 @@ namespace Character.HUD
 {
     public class HPController : MonoBehaviour
     {
-        private TextMeshProUGUI _text;
-        private Image _heartIcon;
-        private Animator _animator;
+        [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Animator _animator;
 
         public float SpeedModifier = 10;
         private static readonly int Property = Animator.StringToHash("HeartBeat Speed");

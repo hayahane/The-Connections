@@ -7,6 +7,7 @@ namespace Character.Battle
     {
         private void OnTriggerEnter(Collider other)
         {
+            if (other.isTrigger) return;
             var attackable = other.GetComponent<IAttackable>();
             if (attackable == null) return;
             attackable.OnAttack();
